@@ -1,0 +1,70 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="create-room layout">
+    <div class="container">
+      <div class="layout__box">
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <a href="{% url 'manage-child' request.user.id %}">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>arrow-left</title>
+                <path
+                  d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                </path>
+              </svg>
+            </a>
+            <h3>Book Appointment for {{child.name}}</h3>
+          </div>
+        </div>
+
+        <div class="layout__body">
+          {% if vaccine == null %}
+              <div class="form__group">
+                  <label>There is no appointment available yet</label>
+              </div>
+
+          {% elif bookedappointment == None %}
+              <form class="form" action="" method="POST">
+                  {% csrf_token %}
+      
+                  <div class="form__group">
+                      <label>Vaccine</label>
+                      <label>{{ vaccine.name }}</label>
+                  </div>
+      
+                  <div class="form__group">
+                      <label>Hospital</label>
+                      <select required name="hospital">
+                          <option value="" disabled selected>Select a Hospital</option>
+                          {% for hospitalvaccine in hospitalvaccines %}
+                              <option value="{{ hospitalvaccine.hospital.username }}">{{ hospitalvaccine.hospital.username }}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+      
+                  <div class="form__group">
+                      <label>Date</label>
+                      <input required type="date" value="Select a Date" name="date" />
+                  </div>
+      
+                  <div class="form__group">
+                      <label>Time</label>
+                      <input required type="time" value="Select a Time" name="time" />
+                  </div>
+      
+                  <div class="form__action">
+                      <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+                      <button class="btn btn--main" type="submit">Submit</button>
+                  </div>
+              </form>
+          {% else %}
+              <div class="form__group">
+                  <label>You have already booked an appointment and you are not allowed to make any changes. Kindly check it under View Appointment section. Contact our admin (03-6057 3311) if you want to reschedule the appointment. It might also be under View Vaccination History section if you have received the vaccination successfully.</label>
+              </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock content %}

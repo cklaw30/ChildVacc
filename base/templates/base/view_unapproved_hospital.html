@@ -1,0 +1,26 @@
+<div class="activities">
+    <div class="activities__header">
+        <h2>View Pending/Restricted Hospital</h2>
+    </div>
+    {% for hospital in hospitals %}
+    <div class="activities__box">
+        <div class="activities__boxHeader roomListRoom__header">
+        <a href="{% url 'profile-hospital' hospital.id %}" class="roomListRoom__author">
+            <div class="avatar avatar--small">
+            <img src="{{hospital.avatar.url}}" />
+            </div>
+            <p>
+            @{{hospital.username}}
+            </p>
+        </a>
+
+        </div>
+        <div class="activities__boxContent">
+        <div class="activities__boxRoomContent">
+            {{hospital.status}}
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>

@@ -1,0 +1,88 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="profile-page layout layout--3">
+    <div class="container">
+      <!-- Navigation Start -->
+      {% if request.user.type == 'PARENT' %}
+          {% include 'base/nav_parent.html' %}
+
+      {% elif request.user.type == 'ADMIN' %}
+          {% include 'base/nav_admin.html' %}
+
+      {% elif request.user.type == 'HOSPITAL' %}
+          {% include 'base/nav_hospital.html' %}
+
+      {% else %}
+          {% include 'base/nav_vaccinesupplier.html' %}
+
+      {% endif %}
+      <!-- Navigation End -->
+
+      <!-- Profile Start -->
+      <div class="roomList">
+        <div class="profile">
+          <div class="profile__avatar">
+            <div class="avatar avatar--large active">
+              <img src="{{child.avatar.url}}" />
+            </div>
+          </div>
+          <div class="profile__info">
+            <h3>{{child.name}}</h3>
+            <p>@{{child.name}}</p>
+            <p>{{child.ic}}</p>
+            {% if request.user == child.parent %}
+            <a href="{% url 'update-profile-child' child.id %}" class="btn btn--main btn--pill">Edit Profile</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="roomList__header">
+          <div>
+            <h2>Vaccination History by {{child.name}}</a>
+            </h2>
+          </div>
+        </div>
+
+        {% for appointment in appointments1 %}
+        <div class="roomListRoom">
+            <div class="roomListRoom__header">
+              <a href="#" class="roomListRoom__author">
+                <div class="avatar avatar--small active">
+                  <img src="{{appointment.child.avatar.url}}" />
+                </div>
+                <span>@{{appointment.child}}</span>
+              </a>
+              <div class="roomListRoom__actions">
+                <a href="{% url 'vaccine' appointment.hospitalvaccine.vaccine.id %}">Vaccine {{appointment.hospitalvaccine.vaccine}}</a>
+              </div>
+            </div>
+            <div class="roomListRoom__content">
+              <a href="{% url 'profile-hospital' appointment.hospitalvaccine.hospital.id %}">HOSPITAL {{appointment.hospitalvaccine.hospital.username}}</a>
+            </div>
+            <div class="roomListRoom__meta">
+              <a class="roomListRoom__joined">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
+                    <path d="M6.445 11.688V6.354h-.633A13 13 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23"/>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                  </svg>
+                {{appointment.date}}    
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                    <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"/>
+                    <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"/>
+                    <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"/>
+                  </svg>
+                  {{appointment.time}}
+              </a>
+            </div>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Profile End -->
+
+      <!-- View Appointments Start -->
+      {% include 'base/view_appointment_child.html' %}
+      <!-- View Appointments End -->
+    </div>
+  </main>
+{% endblock content %}

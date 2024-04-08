@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="create-room layout">
+    <div class="container">
+      <div class="layout__box">
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <a href="{{request.META.HTTP_REFERER}}">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>arrow-left</title>
+                <path
+                  d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                </path>
+              </svg>
+            </a>
+            <h3>Reschedule Appointment for {{child.name}}</h3>
+          </div>
+        </div>
+
+        <div class="layout__body">
+          {% if appointment == None %}
+            <div class="form__group">
+              <label for="room_name">No any appointment booked for this child yet.</label>
+            </div>
+
+          {% else %}
+            <form class="form" action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <div class="form__group">
+                <label>Vaccine {{vaccine.name}}</label>
+              </div>
+
+              <div class="form__group">
+                <label>Hospital</label>
+                <label>{{appointment.hospitalvaccine.hospital.username}}</label>
+                <select required name="hospital">
+                    <option value="" disabled selected>Select a Hospital</option>
+                    {% for hospitalvaccine in hospitalvaccines %}
+                        <option value="{{ hospitalvaccine.hospital.username }}">{{ hospitalvaccine.hospital.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+              <div class="form__group">
+                  <label>Date</label>
+                  <label>{{appointment.date}}</label>
+                  <input type="date" name="date" value="{{date}}">
+              </div>
+            
+            
+
+              <div class="form__group">
+                  <label>Time</label>
+                  <label>{{appointment.time}}</label>
+                  <input required type="time" value="Select a Time" name="time" />
+              </div>
+
+                <div class="form__action">
+                    <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+                    <button class="btn btn--main" type="submit">Update</button>
+                </div>
+            </form>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock content %}

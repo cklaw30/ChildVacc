@@ -1,0 +1,45 @@
+{% if request.user.type != 'PARENT' %}
+    <div class="activities">
+        <div class="activities__header">
+            <h2>{{user.username}}'s Appointment</h2>
+        </div>
+        {% for appointment in appointments %}
+        <div class="activities__box">
+            <div class="activities__boxHeader roomListRoom__header">
+            <a href="{% url 'profile-child' appointment.child.id %}" class="roomListRoom__author">
+                <div class="avatar avatar--small">
+                <img src="{{appointment.child.avatar.url}}" />
+                </div>
+                <p>
+                @{{appointment.child}}
+                <span>Vaccine {{appointment.hospitalvaccine.vaccine}}</span>
+                </p>
+            </a>
+
+            </div>
+            <div class="activities__boxContent">
+            <p><a href="{% url 'profile-hospital' appointment.hospitalvaccine.hospital.id %}">HOSPITAL {{appointment.hospitalvaccine.hospital.username}}</a></p>
+            <div class="activities__boxRoomContent">
+                {{appointment.date}} | {{appointment.time}}
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+{% else %}
+    <div class="activities">
+        <div class="activities__header">
+            <h2>{{user.username}}'s Appointment</h2>
+        </div>
+
+        <div class="activities__box">
+            <div class="activities__boxContent">
+            <p>Restricted View</p>
+            </div>
+        </div>
+
+    </div>
+
+{% endif %}

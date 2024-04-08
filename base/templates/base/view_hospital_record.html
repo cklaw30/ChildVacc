@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="layout layout--3">
+    <div class="container">
+
+      <!-- Navigation Start -->
+      {% include 'base/nav_admin.html' %}
+      
+      <!-- Navigation End -->
+
+      <!-- Hospital List Start -->
+      <div class="roomList">
+        <div class="roomList__header">
+          <div>
+            <h2>Hospital</h2>
+            <p>{{hospitals1.count}} Hospitals Added</p>
+          </div>
+        </div>
+        
+        {% for hospital in hospitals1 %}
+        <div class="roomListRoom">
+            <div class="roomListRoom__header">
+            <a href="{% url 'profile-hospital' hospital.id %}" class="roomListRoom__author">
+                <div class="avatar avatar--small active">
+                <img src="{{hospital.avatar.url}}" />
+                </div>
+                <span>@{{hospital.username}}</span>
+            </a>
+
+            <div class="roomListRoom__actions">
+                <a href="{% url 'delete-hospital' hospital.id %}">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                    <title>remove</title>
+                    <path
+                    d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
+                    ></path>
+                </svg>
+                </a>
+            </div>
+
+            </div>
+            <div class="roomListRoom__meta">
+            <a href="{% url 'update-hospital-status' hospital.id %}"  class="roomListRoom__joined">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-h-square" viewBox="0 0 16 16">
+                    <path d="M11 4.002V12H9.67V8.455H6.33V12H5V4.002h1.33v3.322h3.34V4.002z"/>
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                  </svg>
+                Update Status
+            </a>
+            </div>
+        </div>
+        {% endfor %}
+
+      </div>
+      <!-- Hospital List End -->
+
+      <!-- View Unapproved Hospital Start -->
+      
+      {% include 'base/view_unapproved_hospital.html' %}
+      
+      <!-- View Unapproved Hospital End -->
+    </div>
+  </main>
+
+{% endblock content %}

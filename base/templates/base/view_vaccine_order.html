@@ -1,0 +1,27 @@
+<div class="activities">
+    <div class="activities__header">
+        <h2>{{orders.count}} Orders</h2>
+    </div>
+    {% for order in orders %}
+    <div class="activities__box">
+        <div class="activities__boxHeader roomListRoom__header">
+        <a href="{% url 'profile-hospital' order.hospital.id %}" class="roomListRoom__author">
+            <div class="avatar avatar--small">
+            <img src="{{order.hospital.avatar.url}}" />
+            </div>
+            <p>
+            @{{order.hospital}}
+            </p>
+        </a>
+
+        </div>
+        <div class="activities__boxContent">
+        <p><a href="#">Vaccine {{order.vaccine}}</a></p>
+        <div class="activities__boxRoomContent">
+            Quantity: {{order.stored}} | {{order.status}}
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>

@@ -1,0 +1,19 @@
+{% if request.user.is_authenticated %}
+  {% if request.user.type == 'PARENT' %}
+    {% include 'base/home_parent.html' %}
+
+  {% elif request.user.type == 'HOSPITAL'%}
+    {% include 'base/home_hospital.html' %}
+
+  {% elif request.user.type == 'ADMIN' %}
+    {% include 'base/home_admin.html' %}
+
+  {% else %}
+    {% include 'base/home_vaccinesupplier.html' %}
+
+  {% endif %}
+
+{% else %}
+  {% include 'base/home_parent.html' %}
+
+{% endif %}

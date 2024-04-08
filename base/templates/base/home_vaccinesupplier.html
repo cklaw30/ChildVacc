@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="layout layout--3">
+    <div class="container">
+
+      <!-- Navigation Start -->
+      {% include 'base/nav_vaccinesupplier.html' %}
+      
+      <!-- Navigation End -->
+
+      
+
+      <!-- Health Information Start -->
+      <div class="roomList">
+        <div class="roomList__header">
+          <div>
+            <h2>Health Information</h2>
+            <p>{{healthinfos.count}} Informations available</p>
+          </div>
+        </div>
+
+        {% include 'base/home_healthinfo.html' %}
+      </div>
+      <!-- Health Information End -->
+
+
+
+      <!-- View Orders Start -->
+      
+      {% include 'base/view_vaccine_order.html' %}
+      
+      <!-- View Orders End -->
+    </div>
+  </main>
+
+{% endblock content %}

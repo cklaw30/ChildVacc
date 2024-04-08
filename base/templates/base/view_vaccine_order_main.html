@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="layout layout--3">
+    <div class="container">
+
+      <!-- Navigation Start -->
+      {% include 'base/nav_vaccinesupplier.html' %}
+      
+      <!-- Navigation End -->
+
+      <!-- Order List Start -->
+      <div class="roomList">
+        <div class="roomList__header">
+          <div>
+            <h2>Orders</h2>
+            <p>{{orders1.count}} Orders Added</p>
+          </div>
+          <!-- <a class="btn btn--main" href="#">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>add</title>
+              <path
+                d="M16.943 0.943h-1.885v14.115h-14.115v1.885h14.115v14.115h1.885v-14.115h14.115v-1.885h-14.115v-14.115z"
+              ></path>
+            </svg>
+            Make Order
+          </a> -->
+        </div>
+        
+        {% for order in orders1 %}
+        <div class="roomListRoom">
+            <div class="roomListRoom__header">
+                <a href="{% url 'profile-hospital' order.hospital.id %}" class="roomListRoom__author">
+                    <div class="avatar avatar--small active">
+                    <img src="{{order.hospital.avatar.url}}" />
+                    </div>
+                    <span>@{{order.hospital.username}}</span>
+                </a>
+
+                <div class="roomListRoom__actions">
+                    <span>Expiry: {{order.expiry}}</span>
+                  </div>
+
+            </div>
+            <div class="roomListRoom__content">
+                <a class="roomListRoom__joined">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-capsule" viewBox="0 0 16 16">
+                        <path d="M1.828 8.9 8.9 1.827a4 4 0 1 1 5.657 5.657l-7.07 7.071A4 4 0 1 1 1.827 8.9Zm9.128.771 2.893-2.893a3 3 0 1 0-4.243-4.242L6.713 5.429z"/>
+                      </svg>
+                    <span>{{order.vaccine.name}}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
+                        <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                      </svg>
+                      <span>Quantity: {{order.stored}}</span>
+                  </a>
+            </div>
+            <div class="roomListRoom__meta">
+                <a href="{% url 'update-order-status' order.id %}"  class="roomListRoom__joined">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
+                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                      </svg>
+                    Update Order Status
+                </a>
+            <p class="roomListRoom__topic">{{order.status}}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+      </div>
+      <!-- Order List End -->
+
+      <!-- View Order Start -->
+      
+      {% include 'base/view_vaccine_order.html' %}
+      
+      <!-- View Order End -->
+    </div>
+  </main>
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="profile-page layout layout--3">
+    <div class="container">
+      <!-- Navigation Start -->
+      {% if request.user.type == 'PARENT' %}
+          {% include 'base/nav_parent.html' %}
+
+      {% elif request.user.type == 'ADMIN' %}
+          {% include 'base/nav_admin.html' %}
+
+      {% elif request.user.type == 'HOSPITAL' %}
+          {% include 'base/nav_hospital.html' %}
+
+      {% else %}
+          {% include 'base/nav_vaccinesupplier.html' %}
+
+      {% endif %}
+      <!-- Navigation End -->
+
+      <!-- Profile Start -->
+      <div class="roomList">
+        <div class="profile">
+          <div class="profile__avatar">
+            <div class="avatar avatar--large active">
+              <img src="{{user.avatar.url}}" />
+            </div>
+          </div>
+          <div class="profile__info">
+            <h3>{{user.username}}</h3>
+            <p>{{user.email}}</p>
+            {% if request.user == user %}
+            <a href="{% url 'update-profile-admin' %}" class="btn btn--main btn--pill">Edit Profile</a>
+            {% endif %}
+          </div>
+
+          <div class="profile__about">
+            <h3>Contact: </h3>
+            <p>
+              {{user.contact}}
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <!-- Profile List End -->
+
+      <!-- View Appointments Start -->
+      {% include 'base/view_appointment_admin.html' %}
+      <!-- View Appointments End -->
+    </div>
+  </main>
+{% endblock content %}

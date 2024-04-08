@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <main class="layout layout--3">
+    <div class="container">
+
+      <!-- Navigation Start -->
+      {% include 'base/nav_hospital.html' %}
+      
+      <!-- Navigation End -->
+
+      <!-- Vaccine Stock List Start -->
+      <div class="roomList">
+        <div class="roomList__header">
+          <div>
+            <h2>Vaccine Stocks</h2>
+            <p>{{hospitalvaccines.count}} Vaccine Stocks Added</p>
+          </div>
+          <a class="btn btn--main" href="{% url 'create-vaccine-order' %}">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>add</title>
+              <path
+                d="M16.943 0.943h-1.885v14.115h-14.115v1.885h14.115v14.115h1.885v-14.115h14.115v-1.885h-14.115v-14.115z"
+              ></path>
+            </svg>
+            Make Order
+          </a>
+        </div>
+        
+        {% for hospitalvaccine in hospitalvaccines %}
+        <div class="roomListRoom">
+            <div class="roomListRoom__header">
+                <a href="#" class="roomListRoom__author">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-capsule" viewBox="0 0 16 16">
+                            <path d="M1.828 8.9 8.9 1.827a4 4 0 1 1 5.657 5.657l-7.07 7.071A4 4 0 1 1 1.827 8.9Zm9.128.771 2.893-2.893a3 3 0 1 0-4.243-4.242L6.713 5.429z"/>
+                          </svg>
+                    </div>
+                    <span>Vaccine {{hospitalvaccine.vaccine}}</span>
+                </a>
+
+
+            </div>
+            <div class="roomListRoom__content">
+                <a class="roomListRoom__joined">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket3" viewBox="0 0 16 16">
+                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6z"/>
+                      </svg>
+                    <span>Stored: {{hospitalvaccine.stored}}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
+                        <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                      </svg>
+                      <span>Booked: {{hospitalvaccine.booked}}</span>
+                  </a>
+            </div>
+            <div class="roomListRoom__meta">
+            <a href="#"  class="roomListRoom__joined">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-x" viewBox="0 0 16 16">
+                    <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708"/>
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                  </svg>
+                  <span>Expiry: {{hospitalvaccine.expiry}}</span>
+            </a>
+            <p class="roomListRoom__topic">{{hospitalvaccine.status}}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+      </div>
+      <!-- Vaccine Stock List End -->
+
+      <!-- View Appointments Start -->
+      
+      {% include 'base/view_appointment_hospital.html' %}
+      
+      <!-- View Appointments End -->
+    </div>
+  </main>
+
+{% endblock content %}
